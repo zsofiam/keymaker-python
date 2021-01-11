@@ -1,10 +1,15 @@
 import string
 
 
-def shift_characters(word, shift):
-    char_list = list(word)
+def get_abc_list():
     abc = string.ascii_lowercase
     abc_list = list(abc)
+    return abc_list
+
+
+def shift_characters(word, shift):
+    char_list = list(word)
+    abc_list = get_abc_list()
     for index, letter in enumerate(word):
         new_index = abc_list.index(letter) + shift
         if new_index >= len(abc_list) or new_index <= -1 * len(abc_list):
@@ -24,8 +29,7 @@ def pad_up_to(word, shift, n):
 
 def abc_mirror(word):
     char_list = list(word)
-    abc = string.ascii_lowercase
-    abc_list = list(abc)
+    abc_list = get_abc_list()
     for index, letter in enumerate(word):
         new_index = len(abc_list) - 1 - abc_list.index(letter)
         if new_index >= len(abc_list) or new_index <= -1 * len(abc_list):
@@ -35,8 +39,7 @@ def abc_mirror(word):
 
 
 def create_matrix(word1, word2):
-    abc = string.ascii_lowercase
-    abc_list = list(abc)
+    abc_list = get_abc_list()
     matrix = []
     for letter in word2:
         shift = abc_list.index(letter)
@@ -46,11 +49,15 @@ def create_matrix(word1, word2):
 
 
 def zig_zag_concatenate(matrix):
-    """
-    >>> zig_zag_concatenate(['abc', 'def', 'ghi', 'jkl'])
-    'adgjkhebcfil'
-    """
-    pass
+    new_word = ""
+    for column in range(len(matrix[0])):
+        for j in range(len(matrix)):
+            if not column % 2 == 0:
+                row = len(matrix) - 1 - j
+            else:
+                row = j
+            new_word += matrix[row][column]
+    return new_word
 
 
 def rotate_right(word, n):
@@ -110,3 +117,5 @@ if __name__ == '__main__':
     print(abc_mirror('azbn'))
     print(create_matrix('mamas', 'papas'))
     print(create_matrix("az", "abz"))
+    print(zig_zag_concatenate(['abc', 'def', 'ghi', 'jkl']))
+    print(zig_zag_concatenate(['aaa', 'bbb', 'ccc', 'ddd']))
