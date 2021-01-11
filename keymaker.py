@@ -12,8 +12,8 @@ def shift_characters(word, shift):
     abc_list = get_abc_list()
     for index, letter in enumerate(word):
         new_index = abc_list.index(letter) + shift
-        if new_index >= len(abc_list) or new_index <= -1 * len(abc_list):
-            new_index %= len(abc_list)
+        #if new_index >= len(abc_list) or new_index <= -1 * len(abc_list):
+        new_index %= len(abc_list)
         char_list[index] = abc_list[new_index]
     return "".join(char_list)
 
@@ -61,35 +61,44 @@ def zig_zag_concatenate(matrix):
 
 
 def rotate_right(word, n):
-    """
-    >>> rotate_right('abcdefgh', 3)
-    'fghabcde'
-    """
-    pass
+    new_list = []
+    for i in range(len(word)):
+        new_list.append('a')
+    for i in range(len(word)):
+        new_index = i + n
+        new_index %= len(word)
+        new_list[new_index] = word[i]
+    """ for i in range(n):
+        last_char = word_list[len(word_list)-1]
+        word_list[1:len(word_list)] = word_list[:len(word_list)-1]
+        word_list[0] = last_char """
+    return "".join(new_list)
 
 
 def get_square_index_chars(word):
-    """
-    >>> get_square_index_chars('abcdefghijklm')
-    'abej'
-    """
-    pass
+    new_word = ""
+    new_index = 0
+    while new_index ** 2 < len(word):
+        new_word += word[new_index**2]
+        new_index += 1
+    return new_word
 
 
 def remove_odd_blocks(word, block_length):
-    """
-    >>> remove_odd_blocks('abcdefghijklm', 3)
-    'abcghim'
-    """
-    pass
+    new_word = ""
+    skip = True
+    for index, letter in enumerate(word):
+        if index % block_length == 0:
+            skip = not skip
+        if not skip:
+            new_word += word[index]
+    return new_word
 
 
 def reduce_to_fixed(word, n):
-    """
-    >>> reduce_to_fixed('abcdefghijklm', 6)
-    'bafedc'
-    """
-    pass
+    shift = -1 * n // 3
+    new_word = rotate_right(word[:n], shift)
+    return new_word[::-1]
 
 
 def hash_it(word):
@@ -109,7 +118,10 @@ def hash_it(word):
 if __name__ == '__main__':
     #name = input("Enter your name! ").lower()
     #print(f'Your key: {hash_it(name)}')
-    print(shift_characters("azcmx", 200))
+    print(shift_characters("abby", 5))
+    print(shift_characters("a", 27))
+    print(shift_characters("azcmx", 2))
+    print(shift_characters("azcmx", -200))
     print(pad_up_to('abb', 5, 11))
     print(pad_up_to('aaa', 2, 100))
     print(abc_mirror('abcd'))
@@ -119,3 +131,17 @@ if __name__ == '__main__':
     print(create_matrix("az", "abz"))
     print(zig_zag_concatenate(['abc', 'def', 'ghi', 'jkl']))
     print(zig_zag_concatenate(['aaa', 'bbb', 'ccc', 'ddd']))
+    print(rotate_right('abcdefgh', 1))
+    print(rotate_right('abcdefgh', 3))
+    print(rotate_right('abcdefgh', 8))
+    print(rotate_right('abcd', 1))
+    print(rotate_right('abcd', 4))
+    print(rotate_right('abcd', 100))
+    print(rotate_right('abcd', 5))
+    print(rotate_right('abcdefgh', 3))
+    print(rotate_right('abcdefgh', 11))
+    print(rotate_right('abcdefgh', -5))
+    print(rotate_right('abcdefgh', -13))
+    print(get_square_index_chars('abcdefghijklm'))
+    print(remove_odd_blocks('abcdefghijklm', 3))
+    print(reduce_to_fixed('abcdefghijklm', 6))
