@@ -14,19 +14,24 @@ def shift_characters(word, shift):
 
 
 def pad_up_to(word, shift, n):
-    """
-    >>> pad_up_to('abb', 5, 11)
-    'abbfggkllpq'
-    """
-    pass
+    new_word = word
+    while len(new_word) < n:
+        appendix = shift_characters(word, shift)
+        new_word += appendix
+        word = appendix
+    return new_word[:n]
 
 
 def abc_mirror(word):
-    """
-    >>> abc_mirror('abcd')
-    'zyxw'
-    """
-    pass
+    char_list = list(word)
+    abc = string.ascii_lowercase
+    abc_list = list(abc)
+    for index, letter in enumerate(word):
+        new_index = len(abc_list) - 1 - abc_list.index(letter)
+        if new_index >= len(abc_list) or new_index <= -1 * len(abc_list):
+            new_index %= len(abc_list)
+        char_list[index] = abc_list[new_index]
+    return "".join(char_list)
 
 
 def create_matrix(word1, word2):
@@ -95,3 +100,8 @@ if __name__ == '__main__':
     #name = input("Enter your name! ").lower()
     #print(f'Your key: {hash_it(name)}')
     print(shift_characters("azcmx", 200))
+    print(pad_up_to('abb', 5, 11))
+    print(pad_up_to('aaa', 2, 100))
+    print(abc_mirror('abcd'))
+    print(abc_mirror('morpheus'))
+    print(abc_mirror('azbn'))
