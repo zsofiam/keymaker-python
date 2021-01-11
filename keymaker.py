@@ -1,9 +1,16 @@
+import string
+
+
 def shift_characters(word, shift):
-    """
-    >>> shift_characters('abby', 5)
-    'fggd'
-    """
-    pass
+    char_list = list(word)
+    abc = string.ascii_lowercase
+    abc_list = list(abc)
+    for index, letter in enumerate(word):
+        new_index = abc_list.index(letter) + shift
+        if new_index >= len(abc_list) or new_index <= -1 * len(abc_list):
+            new_index %= len(abc_list)
+        char_list[index] = abc_list[new_index]
+    return "".join(char_list)
 
 
 def pad_up_to(word, shift, n):
@@ -85,5 +92,6 @@ def hash_it(word):
 
 
 if __name__ == '__main__':
-    name = input("Enter your name! ").lower()
-    print(f'Your key: {hash_it(name)}')
+    #name = input("Enter your name! ").lower()
+    #print(f'Your key: {hash_it(name)}')
+    print(shift_characters("azcmx", 200))
