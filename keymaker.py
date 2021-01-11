@@ -116,8 +116,8 @@ def hash_it(word):
 
 
 if __name__ == '__main__':
-    #name = input("Enter your name! ").lower()
-    #print(f'Your key: {hash_it(name)}')
+    name = input("Enter your name! ").lower()
+    print(f'Your key: {hash_it(name)}')
     print(shift_characters("abby", 5))
     print(shift_characters("a", 27))
     print(shift_characters("azcmx", 2))
@@ -145,3 +145,6 @@ if __name__ == '__main__':
     print(get_square_index_chars('abcdefghijklm'))
     print(remove_odd_blocks('abcdefghijklm', 3))
     print(reduce_to_fixed('abcdefghijklm', 6))
+    print(hash_it("morpheus"))
+    print(hash_it("trinity"))
+    print(hash_it("neo"))
